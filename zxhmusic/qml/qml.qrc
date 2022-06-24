@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Actions.qml</file>
+        <file>main.qml</file>
+        <file>Dialogs.qml</file>
+        <file>SongSearchDialog.qml</file>
+        <file>KuGou.qml</file>
+        <file>VideoPage.qml</file>
+    </qresource>
+</RCC>
