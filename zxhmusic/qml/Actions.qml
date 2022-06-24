@@ -80,11 +80,15 @@ Item {
         id:songsearch
         text:qsTr("搜索歌曲")
         icon.name: "system-search"
+        onTriggered: {
+            dialogs.songSearchDialog.visible=true
+        }
     }
     Action{
         id:mvsearch
         text:qsTr("搜索MV")
         icon.name: "system-search"
+
     }
     Action{
         id:recentplay
@@ -93,10 +97,18 @@ Item {
     Action{
         id:skin
         text:qsTr("主题")
+        icon.source: "qrc:/image/skn.png"
+        onTriggered: {
+            dialogs.skinDialog.visible=true
+        }
     }
     Action{
         id:trackinformation
         text:qsTr("曲目信息")
+        icon.source: "qrc:/image/曲目信息.png"
+        onTriggered: {
+            dialogs.trackInformationDialog.visible=true
+        }
     }
     Action{
         id:login

@@ -1,7 +1,8 @@
 QT += quick
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        song.cpp
 
 resources.files = main.qml
 resources.files = Actions.qml
@@ -23,3 +24,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 #DISTFILES += \
 #    Actions.qml \
 #    main.qml
+
+unix|win32: LIBS += -ltag
+
+unix|win32: LIBS += -ltag_c
+
+unix|win32: LIBS += -lz
+
+unix|win32: LIBS += -lavutil
+unix|win32: LIBS += -lavformat
+unix|win32: LIBS += -lavcodec
+unix|win32: LIBS += -lswresample
+
+HEADERS += \
+    song.h

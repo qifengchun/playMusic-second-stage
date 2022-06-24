@@ -1,11 +1,14 @@
 //qfcv
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "song.h"
 
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    qmlRegisterType<Song,1>("Song",1,0,"Song");
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/main.qml"_qs);

@@ -15,7 +15,7 @@ ApplicationWindow {
     property double mX:0.0
     property double mY:0.0
     property alias songListView: songListView
-    property alias play1: play1
+    //property alias play1: play1
     //    property alias pauseVideo: pauseVideo
     property alias songListModel: songListModel
     property alias inputField: inputField
@@ -544,7 +544,7 @@ ApplicationWindow {
                     id:songModel
                 }
                 Component{
-                    id:songModel
+                    id:songDelegate
                     Rectangle{
                         radius: 4
                         width: songList.width - 20
