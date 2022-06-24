@@ -4,6 +4,7 @@ QT += network
 
 SOURCES += \
         kugousong.cpp \
+        lyric.cpp \
         main.cpp \
         song.cpp
 
@@ -41,4 +42,5 @@ unix|win32: LIBS += -lswresample
 
 HEADERS += \
     kugousong.h \
+    lyric.h \
     song.h
