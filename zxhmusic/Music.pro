@@ -1,6 +1,9 @@
 QT += quick
+QT += widgets
+QT += network
 
 SOURCES += \
+        kugousong.cpp \
         main.cpp \
         song.cpp
 
@@ -37,4 +40,5 @@ unix|win32: LIBS += -lavcodec
 unix|win32: LIBS += -lswresample
 
 HEADERS += \
+    kugousong.h \
     song.h

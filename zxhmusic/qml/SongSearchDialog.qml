@@ -613,15 +613,15 @@ ApplicationWindow {
                 }
             }
         }
-        KuGou{
-            id:kugou
-        }
-        VideoPage{
-            id:videoPage
-        }
 
     }
 
+    KuGou{
+        id:kugou
+    }
+    VideoPage{
+        id:videoPage
+    }
 
 
 
