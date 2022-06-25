@@ -24,10 +24,11 @@ public:
     Q_INVOKABLE void extract_timeStamp();//提取时间戳
     Q_INVOKABLE int findTimeInterval(QString nowTime);//找到时间间隔
     Q_INVOKABLE QString translateStamp(int time);//将时间戳转换为毫秒 00：00.00
-    //Q_INVOKABLE QString translateStamp1(int time);
+    Q_INVOKABLE QString translateStamp1(int time);
     Q_INVOKABLE bool lyricFlag(){return m_lyricFlag;}
 
     int translate(QString time);//将时间戳转换为毫秒 00：00.00
+    int translate1(QString time);//将时间戳转换为毫秒 00：00
     void sort();//将转换后的时间戳数组按升序排列
     int highlightPos() const{
         return m_highlightPos;
