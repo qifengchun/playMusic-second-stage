@@ -1,3 +1,4 @@
+//由qfc完成搜索模块
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -20,8 +21,6 @@ ApplicationWindow {
     property alias songListModel: songListModel
     property alias inputField: inputField
     property string netLyric:""
-
-
 
     background: Image {
         id: name
@@ -61,9 +60,7 @@ ApplicationWindow {
                                 kugou.kuGouSong.searchSong(inputField.text)
                             }
                         }
-
                     }
-
                 }
                 Button{
                     id:songSearchButton
@@ -251,7 +248,8 @@ ApplicationWindow {
                                     }
                                 }
                                 onDoubleClicked: {
-                                    play1.trigger()
+
+                                    play1.triggered();
                                 }
                             }
                             Menu{
@@ -620,6 +618,7 @@ ApplicationWindow {
 
     KuGou{
         id:kugou
+
     }
     VideoPage{
         id:videoPage
@@ -628,34 +627,46 @@ ApplicationWindow {
     Action{
         id:play1
         text: qsTr("播放")
-        onTriggered: {
-            if(videoPlayFlag) {
-                pauseVideo.trigger()
-                console.log(videoPlayFlag)
-            }
-            networkPlay=true
-            content.spectrogram.speTimer.running = false
-            content.spectrogram.canvasClear()
-            content.lyricRightPage.lyricListModel.clear()
-            content.lyricLeftPage.lyricListModel.clear()
 
-            if(dialogs.lyricDialog.timerTest.running) {
-                dialogs.lyricDialog.testNum=0     //让testArea中的歌词不再高亮
-                dialogs.lyricDialog.timerTest.running=false;
-                dialogs.lyricDialog.action.addTagAction.enabled=true;
-                dialogs.lyricDialog.action.deleteHeaderLabelAction.enabled=true;
-                dialogs.lyricDialog.action.deleteAllLabelAction.enabled=true;
-                dialogs.lyricDialog.toolBarAddTag.enabled=true
-                dialogs.lyricDialog.tooBarDeleteHeaderLabel.enabled=true
-            }
+        onTriggered: {
+//            if(videoPlayFlag) {
+//                pauseVideo.trigger()
+//                console.log(videoPlayFlag)
+//            }
+//            networkPlay=true
+//            content.spectrogram.speTimer.running = false
+//            content.spectrogram.canvasClear()
+//            content.lyricRightPage.lyricListModel.clear()
+//            content.lyricLeftPage.lyricListModel.clear()
+
+//            if(dialogs.lyricDialog.timerTest.running) {
+//                dialogs.lyricDialog.testNum=0     //让testArea中的歌词不再高亮
+//                dialogs.lyricDialog.timerTest.running=false;
+//                dialogs.lyricDialog.action.addTagAction.enabled=true;
+//                dialogs.lyricDialog.action.deleteHeaderLabelAction.enabled=true;
+//                dialogs.lyricDialog.action.deleteAllLabelAction.enabled=true;
+//                dialogs.lyricDialog.toolBarAddTag.enabled=true
+//                dialogs.lyricDialog.tooBarDeleteHeaderLabel.enabled=true
+//            }
+
             if(re1.visible) {
                  kugou.kuGouSong.getSongUrl(songListView.currentIndex)
             } else {
                 kugou.kuGouPlayList.getSongUrl(songList.currentIndex)
             }
+
+            console.log(kugou.kuGouSong.url)
+            content.player.source=kugou.kuGouSong.url
+            content.player.play();
         }
     }
-
+    Action{
+        id:downloadSong
+         text:qsTr("下载")
+         onTriggered: {
+             saveSongDialog.open()
+         }
+    }
     Action{
         id:pauseVideo
         text: qsTr("暂停")
@@ -664,7 +675,13 @@ ApplicationWindow {
             videoPage.video.pause()
         }
     }
-
+    Action{
+        id:playVideo
+        text: qsTr("播放")
+        onTriggered: {
+            kugou.kuGouMv.getMvUrl(mvListView.currentIndex)
+        }
+    }
     Action{
         id:pause1
         text: qsTr("暂停")

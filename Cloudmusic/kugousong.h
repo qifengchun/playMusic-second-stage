@@ -1,3 +1,4 @@
+//由qfc完成的搜索模块
 #ifndef KUGOUSONG_H
 #define KUGOUSONG_H
 

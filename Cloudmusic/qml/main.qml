@@ -10,6 +10,7 @@ ApplicationWindow {
     title: qsTr("Cloud Music")
     property alias rootImage: backimage
     property url imageUrl: ""
+    property alias content: content
     background:Image{
         id:backimage
         fillMode:Image.PreserveAspectCrop

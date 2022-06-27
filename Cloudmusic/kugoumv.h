@@ -1,3 +1,4 @@
+//由qfc完成的搜索模块
 #ifndef KUGOUMV_H
 #define KUGOUMV_H
 

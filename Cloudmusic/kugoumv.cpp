@@ -1,3 +1,4 @@
+//由qfc完成的搜索模块
 #include "kugoumv.h"
 #include <QJsonDocument>
 #include <QJsonObject>

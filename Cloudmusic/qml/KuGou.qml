@@ -1,10 +1,12 @@
+//由qfc完成的搜索模块
 import QtQuick
 import KuGouSong
+import KuGouMv
 
 Item {
 
     property alias kuGouSong:kuGouSong
-//    property alias kuGouMv:kuGouMv
+    property alias kuGouMv:kuGouMv
 //    property alias kuGouPlayList:kuGouPlayList
 
     KuGouSong{
@@ -32,6 +34,22 @@ Item {
             dialogs.lyricDialog.timerTest.running=false
             netLyric=kuGouSong.lyrics
             showNetworkLyrics();
+        }
+    }
+
+    KuGouMv{
+        id:kuGouMv
+        onMvNameChanged: {
+            addMvItem()
+        }
+        onMvUrlChanged: {
+            videoPage.visible=true
+            videoPage.video.source=mvUrl
+            videoPage.video.play()
+            videoPlayFlag=true
+            if(content.musicPlayer.pause.visible) {
+                content.musicPlayer.pause.clicked()
+            }
         }
     }
 

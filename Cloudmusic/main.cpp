@@ -3,8 +3,10 @@
 #include <QQmlApplicationEngine>
 #include "song.h"
 #include "kugousong.h"
+#include "kugoumv.h"
 #include "lyric.h"
 #include "lyricline.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +14,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<Song,1>("Song",1,0,"Song");
     qmlRegisterType<KuGouSong,1>("KuGouSong",1,0,"KuGouSong");
+    qmlRegisterType<KuGouMv, 1>("KuGouMv", 1, 0, "KuGouMv");
     //qmlRegisterType<KuGouPlayList, 1>("KuGouPlayList", 1, 0, "KuGouPlayList");
 //    qmlRegisterType<Lyric,1>("Lyric",1,0,"Lyric");
     qmlRegisterType<LyricLine,1>("LyricLine",1,0,"LyricLine");
