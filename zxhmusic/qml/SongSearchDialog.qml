@@ -15,8 +15,8 @@ ApplicationWindow {
     property double mX:0.0
     property double mY:0.0
     property alias songListView: songListView
-    //property alias play1: play1
-    //    property alias pauseVideo: pauseVideo
+    property alias play1: play1
+    property alias pauseVideo: pauseVideo
     property alias songListModel: songListModel
     property alias inputField: inputField
     property string netLyric:""
@@ -44,7 +44,7 @@ ApplicationWindow {
                     Layout.preferredHeight: 40
                     Layout.leftMargin: (songSearchWindow.width-inputField.width)/2.5
                     focus: true
-                    placeholderText: qsTr("薛之谦")
+                    placeholderText: qsTr("陈奕迅")
                     Layout.topMargin: 30
                     selectByMouse: true//鼠标可以选择
                     font.pointSize: 12//字体大小
@@ -53,16 +53,16 @@ ApplicationWindow {
                         border.color: "black"
                     }
                     Keys.onPressed: {
-                        if(event.key===Qt.Key_Return)
-                        {
-                            kugou.kuGouSong.searchSong(inputField.placeholderText)
-                            inputField.text=inputField.placeholderText
-                        }else{
-                            kugou.kuGouSong.searchSong(inputField.text)
+                        if(event.key===Qt.Key_Return){
+                            if(event.key===Qt.Key_Return) {
+                                kugou.kuGouSong.searchSong(inputField.placeholderText)
+                                inputField.text=inputField.placeholderText
+                            }else{
+                                kugou.kuGouSong.searchSong(inputField.text)
+                            }
                         }
+
                     }
-
-
 
                 }
                 Button{
@@ -73,9 +73,13 @@ ApplicationWindow {
                     Layout.topMargin: 30
 
                     onClicked: {
-                        if(inputField.text.length===0){}else{}
+                        if(inputField.text.length===0) {
+                            kugou.kuGouSong.searchSong(inputField.placeholderText)
+                            inputField.text=inputField.placeholderText
+                        } else {
+                            kugou.kuGouSong.searchSong(inputField.text)
+                        }
                     }
-
                 }
             }
             TabBar{
@@ -87,8 +91,12 @@ ApplicationWindow {
                     implicitHeight: 30
                     implicitWidth:10
                     onClicked: {
-                        if(inputField.text.length===0){}else{}
-
+                        if(inputField.text.length===0) {
+                            kugou.kuGouSong.searchSong(inputField.placeholderText)
+                            inputField.text=inputField.placeholderText
+                        } else {
+                            kugou.kuGouSong.searchSong(inputField.text)
+                        }
                     }
                 }
 
@@ -111,10 +119,13 @@ ApplicationWindow {
                     implicitHeight: 30
                     implicitWidth: 10
                     onClicked: {
-                        if(inputField.text.length===0) {}else{}
-
+                        if(inputField.text.length===0) {
+                            kugou.kuGouMv.searchMv(inputField.placeholderText)
+                            inputField.text=inputField.placeholderText
+                        } else {
+                            kugou.kuGouMv.searchMv(inputField.text)
+                        }
                     }
-
                 }
             }
             //StackLayout 类提供了一个项目堆栈，其中一次只有一个项目可见
@@ -220,6 +231,7 @@ ApplicationWindow {
                                     Layout.preferredWidth:60
                                 }
                             }
+                            //鼠标右键弹出单曲的菜单界面
                             TapHandler{
                                 id:tapHandler
                                 acceptedButtons: Qt.RightButton
@@ -251,10 +263,7 @@ ApplicationWindow {
                                     pause1,
                                     downloadSong
                                 ]
-
                             }
-
-
                         }
                     }
                 }
@@ -468,19 +477,12 @@ ApplicationWindow {
 
                                     }
                                 }
-
-
-
                             }
-
                         }
-
                     }
                 }
             }
-
         }
-
     }
     //退出之后清理后台缓存资源
     onClosing: {
@@ -623,9 +625,54 @@ ApplicationWindow {
         id:videoPage
     }
 
+    Action{
+        id:play1
+        text: qsTr("播放")
+        onTriggered: {
+            if(videoPlayFlag) {
+                pauseVideo.trigger()
+                console.log(videoPlayFlag)
+            }
+            networkPlay=true
+            content.spectrogram.speTimer.running = false
+            content.spectrogram.canvasClear()
+            content.lyricRightPage.lyricListModel.clear()
+            content.lyricLeftPage.lyricListModel.clear()
 
+            if(dialogs.lyricDialog.timerTest.running) {
+                dialogs.lyricDialog.testNum=0     //让testArea中的歌词不再高亮
+                dialogs.lyricDialog.timerTest.running=false;
+                dialogs.lyricDialog.action.addTagAction.enabled=true;
+                dialogs.lyricDialog.action.deleteHeaderLabelAction.enabled=true;
+                dialogs.lyricDialog.action.deleteAllLabelAction.enabled=true;
+                dialogs.lyricDialog.toolBarAddTag.enabled=true
+                dialogs.lyricDialog.tooBarDeleteHeaderLabel.enabled=true
+            }
+            if(re1.visible) {
+                 kugou.kuGouSong.getSongUrl(songListView.currentIndex)
+            } else {
+                kugou.kuGouPlayList.getSongUrl(songList.currentIndex)
+            }
+        }
+    }
+
+    Action{
+        id:pauseVideo
+        text: qsTr("暂停")
+        onTriggered: {
+            videoPlayFlag=false
+            videoPage.video.pause()
+        }
+    }
+
+    Action{
+        id:pause1
+        text: qsTr("暂停")
+        onTriggered: actions.pauseAction.triggered()
+    }
 
 }
+
 
 
 
