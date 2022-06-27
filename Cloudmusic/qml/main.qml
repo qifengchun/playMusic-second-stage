@@ -11,6 +11,8 @@ ApplicationWindow {
     property alias rootImage: backimage
     property url imageUrl: ""
     property alias content: content
+    property alias dialogs: dialogs
+
     background:Image{
         id:backimage
         fillMode:Image.PreserveAspectCrop
@@ -130,6 +132,9 @@ ApplicationWindow {
         openFileAction.onTriggered: dialogs.openFileDialog()
         playAction.onTriggered:     content.player.play()
         pauseAction.onTriggered:    content.player.pause()
+        previousAction.onTriggered: content.song_previous()
+        nextAction.onTriggered: content.song_next()
+
     }
 
     Dialogs{
