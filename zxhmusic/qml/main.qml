@@ -82,6 +82,42 @@ ApplicationWindow {
             ToolButton{action:actions.nextAction}
             ToolButton{action:actions.openLyricAction}
             ToolButton{action:actions.songListAction}
+            Slider{
+                   id:slider1
+                   from:0
+                   to:1
+               }
+
+
+               Timer {
+                   interval: 10;running: true;repeat: true
+                   onTriggered:
+                       content.durationtime_show()
+
+              }
+
+               Timer {
+                   interval: 1;running: true;repeat: true
+                   onTriggered:
+                       content.durationtime_endTime()
+
+              }
+
+
+                Button{
+                   id:now
+
+               }
+
+            Slider{
+                id:slider2
+                from: 0
+                to:content.player.duration/1000
+            }
+            Button{
+                id:endTime
+
+            }
         }
     }
 
@@ -90,12 +126,20 @@ ApplicationWindow {
     Actions{
         id:actions
         aboutAction.onTriggered: dialogs.openAboutDialog()
-
+        openFileAction.onTriggered: dialogs.openFileDialog()
+        playAction.onTriggered:     content.player.play()
+        pauseAction.onTriggered:    content.player.pause()
     }
 
     Dialogs{
         id:dialogs
+        fileOpenDialog.onAccepted:
+            content.setFilesModel(fileOpenDialog.currentFiles)
+    }
 
+    Content{
+        id:content
+        anchors.fill: parent
     }
 
 }

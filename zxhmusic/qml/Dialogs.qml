@@ -6,12 +6,24 @@ import Qt.labs.platform
 
 Item{
     function openAboutDialog() { about.open(); }
+    function openFileDialog() { fileOpen.open(); }
 
+
+    property alias fileOpenDialog: fileOpen
     property alias fileImageDialog:fileimageDialog
     property alias skinDialog:skinDialog
     property alias trackInformationDialog:trackInformationDialog
     property alias songSearchDialog:songSearchDialog
 
+//打开文件
+    FileDialog {
+        id: fileOpen
+        title: "Select some music files"
+        fileMode: FileDialog.OpenFiles
+        nameFilters: [ "Song files (*.mp3)" ]
+
+
+    }
     FileDialog{
         id:fileimageDialog
         title:"请选择一张图片"

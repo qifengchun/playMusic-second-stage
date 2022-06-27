@@ -2,8 +2,10 @@ import QtQuick
 import QtQuick.Controls
 
 Item {
+    property alias voiceAction : voice
     property alias openFileAction: openfile
     property alias openFolderAction: openfolder
+
     property alias exitAction: exit
     property alias openLyricAction: openLyric
     property alias closeLyricAction: closeLyric
@@ -65,6 +67,10 @@ Item {
     Action{
         id:next
         icon.name: "media-seek-forward"
+    }
+    Action{
+        id:voice
+
     }
     Action{
         id:songList
