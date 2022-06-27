@@ -39,6 +39,7 @@ Item{
     QQC.Dialog{
         id:about
         title:"关于"
+        width: 800
         contentItem:Text{
             text:"本软件名为Cloud Music,由齐逢春，向文勇，曾祥欢共同实现。"
         }

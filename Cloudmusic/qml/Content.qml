@@ -109,7 +109,7 @@ Item{
                   id: firstPage
                   Image {
                       //id= name
-                      source: "file:///root/image/play.png"
+                      source: "qrc:/image/播放.png"
                       anchors.fill:parent
                   }
 
@@ -118,7 +118,7 @@ Item{
                   id: secondPage
                   Image {
                       //id= name
-                      source: "file:///root/image/next.png"
+                      source: "qrc:/image/下一曲.png"
                       anchors.fill: parent
                   }
               }
@@ -126,7 +126,7 @@ Item{
                   id: thirdPage
                   Image {
                       //id= name
-                      source:"file:///root/image/pause.png"
+                      source:"qrc:/image/暂停.png"
                       anchors.fill: parent
                   }
 

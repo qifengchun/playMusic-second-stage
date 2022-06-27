@@ -7,6 +7,7 @@ SOURCES += \
         kugouplaylist.cpp \
         kugousong.cpp \
         lyric.cpp \
+        lyricdownload.cpp \
         lyricline.cpp \
         main.cpp \
         song.cpp
@@ -48,5 +49,6 @@ HEADERS += \
     kugouplaylist.h \
     kugousong.h \
     lyric.h \
+    lyricdownload.h \
     lyricline.h \
     song.h

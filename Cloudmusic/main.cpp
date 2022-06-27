@@ -6,6 +6,7 @@
 #include "kugoumv.h"
 #include "lyric.h"
 #include "lyricline.h"
+#include "lyricdownload.h"
 
 
 int main(int argc, char *argv[])
@@ -18,6 +19,7 @@ int main(int argc, char *argv[])
     //qmlRegisterType<KuGouPlayList, 1>("KuGouPlayList", 1, 0, "KuGouPlayList");
 //    qmlRegisterType<Lyric,1>("Lyric",1,0,"Lyric");
     qmlRegisterType<LyricLine,1>("LyricLine",1,0,"LyricLine");
+    qmlRegisterType<LyricDownload,1>("LyricDownload",1,0,"LyricDownload");
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/main.qml"_qs);

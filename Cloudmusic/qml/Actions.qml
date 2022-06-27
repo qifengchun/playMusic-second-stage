@@ -55,10 +55,18 @@ Item {
     Action{
         id:play
         icon.name: "media-playback-start"
+        onTriggered:{
+            play1.visible=false
+            pause1.visible=true
+        }
     }
     Action{
         id:pause
         icon.name: "media-playback-pause"
+        onTriggered:{
+            pause1.visible=false
+            play1.visible=true
+        }
     }
     Action{
         id:previous

@@ -80,8 +80,14 @@ ApplicationWindow {
     footer:ToolBar{
         RowLayout{
             ToolButton{action:actions.previousAction}
-            ToolButton{action:actions.playAction}
-            ToolButton{action:actions.pauseAction}
+            ToolButton{
+                id:play1
+                visible:true
+                action:actions.playAction}
+            ToolButton{
+                id:pause1
+                visible:false
+                action:actions.pauseAction}
             ToolButton{action:actions.nextAction}
             ToolButton{action:actions.openLyricAction}
             ToolButton{action:actions.songListAction}
