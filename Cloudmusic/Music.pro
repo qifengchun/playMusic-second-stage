@@ -3,6 +3,7 @@ QT += widgets
 QT += network
 
 SOURCES += \
+        kugoumv.cpp \
         kugousong.cpp \
         lyric.cpp \
         lyricline.cpp \
@@ -42,6 +43,7 @@ unix|win32: LIBS += -lavcodec
 unix|win32: LIBS += -lswresample
 
 HEADERS += \
+    kugoumv.h \
     kugousong.h \
     lyric.h \
     lyricline.h \

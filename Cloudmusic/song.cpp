@@ -12,10 +12,10 @@
 using namespace std;
 
 Song::Song(QObject *parent):QObject(parent){
-    clearInformations();
+    clearTags();
 }
 
-void Song::getInformations(QString url,QString diaPath){
+void Song::getTags(QString url,QString diaPath){
     QByteArray ba=url.toUtf8();//访问QByteArray主要有4中方式，分别为[]、at()、data[]和constData[]。其中[]和data[]为可读可写
     //从串口读取到的QByteArray数据，一般需要进行提取和解析，此时就需要QByteArray转换为各类型数据
     const char *ch=ba.data();
@@ -33,12 +33,12 @@ void Song::getInformations(QString url,QString diaPath){
         }
     }
     else{
-        clearInformations();
+        clearTags();
         m_flag=false;
     }
 }
 
-void Song::saveInformations(QString url,QVariantMap map){
+void Song::saveTags(QString url,QVariantMap map){
     QByteArray ba=url.toUtf8();
     const char *ch=ba.data();
     QString end;//歌名后缀
@@ -56,15 +56,15 @@ void Song::saveInformations(QString url,QVariantMap map){
 void Song::mp3Open(const char *ch){
     //用taglib提取mp3文件中的图片和一些其它信息的实例
     TagLib::MPEG::File *mpegFile = new TagLib::MPEG::File(ch);//Opens a new MPEG file
-    m_Informations.clear();
+    m_Tags.clear();
 
     if(mpegFile->isOpen()){
-        m_Informations["标题"]=mpegFile->tag()->title().toCString();
-        m_Informations["艺术家"]=mpegFile->tag()->artist().toCString();
-        m_Informations["唱片集"]=mpegFile->tag()->album().toCString();
-        m_Informations["注释"]=mpegFile->tag()->comment().toCString();
-        m_Informations["流派"]=mpegFile->tag()->genre().toCString();
-        m_Informations["日期"]=mpegFile->tag()->year();
+        m_Tags["标题"]=mpegFile->tag()->title().toCString();
+        m_Tags["艺术家"]=mpegFile->tag()->artist().toCString();
+        m_Tags["唱片集"]=mpegFile->tag()->album().toCString();
+        m_Tags["注释"]=mpegFile->tag()->comment().toCString();
+        m_Tags["流派"]=mpegFile->tag()->genre().toCString();
+        m_Tags["日期"]=mpegFile->tag()->year();
     }
     TagLib::ID3v2::Tag *id3v2tag=mpegFile->ID3v2Tag();
     if(id3v2tag){
@@ -119,13 +119,13 @@ void Song::mp3Save(const char *ch, QVariantMap map){
     }
 }
 
-void Song::clearInformations(){
-    m_Informations["标题"]=" ";
-    m_Informations["艺术家"]=" ";
-    m_Informations["唱片集"]=" ";
-    m_Informations["注释"]=" ";
-    m_Informations["流派"]=" ";
-    m_Informations["日期"]=" ";
+void Song::clearTags(){
+    m_Tags["标题"]=" ";
+    m_Tags["艺术家"]=" ";
+    m_Tags["唱片集"]=" ";
+    m_Tags["注释"]=" ";
+    m_Tags["流派"]=" ";
+    m_Tags["日期"]=" ";
 }
 
 bool Song::flag() const{
