@@ -2,6 +2,9 @@ import QtQuick
 import Lyric
 
 Item {
+    width:400
+    height: 500
+    property alias lyric:lyric
     property alias lyricText:lyricText
     property alias lyricListView:lyricListView
     property alias lyricListModel:lyricListModel
@@ -17,12 +20,12 @@ Item {
     }
 
     ListView{
-        id:ltricListView
+        id:lyricListView
         model:lyricListModel
         delegate:lyricDelegate
         visible:false
         anchors.fill:parent
-        spacing:30
+//        spacing:30
         currentIndex: -1
 
         //固定currentItem的位置
@@ -37,17 +40,25 @@ Item {
 
     Component{
         id:lyricDelegate
-        Text{
-            id:mt
-            text:currentLyrics
+        Rectangle{
             width:350
-            font.pixelSize: ListView.isCurrentItem?25:18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            color:ListView.isCurrentItem?"red":"black"
+            height: 30
+            Text{
+                id:mt
+                text:currentLyrics
+
+                font.pixelSize: ListView.isCurrentItem?25:18
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                color:ListView.isCurrentItem?"red":"black"
+            }
         }
+
+
+
     }
+
     Lyric{
-        id:lyric_id
+        id:lyric
     }
 }

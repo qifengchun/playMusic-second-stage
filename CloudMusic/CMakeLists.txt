@@ -15,9 +15,7 @@ qt_add_executable(appCloudMusic
     ${QRC_FILES}
     song.cpp song.h
     lyric.cpp lyric.h
-    kugousong.cpp kugousong.h
-    lyricdownload.cpp lyricdownload.h
-    lyricline.cpp lyricline.h Resource.qrc
+    kugousong.cpp kugousong.h Resource.qrc
 )
 
 qt_add_qml_module(appCloudMusic
