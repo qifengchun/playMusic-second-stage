@@ -165,7 +165,7 @@ Item{
                         color:ListView.isCurrentItem ? "lightgrey" : "white"
                         Text {
                             id: serialNumberText
-                            text: index+1
+                            text:filePath.toString().replace(/^.*[\\\/]/,'')
                             font.pointSize: 15
                             width: 40
                             color: "Teal"
