@@ -104,7 +104,7 @@ public slots:
         m_songName = songName;
         emit songNameChanged(m_songName);
     }
-
+//专辑名
     void setAlbumName(QList<QString> albumName)
     {
         if (m_albumName == albumName)
@@ -113,7 +113,7 @@ public slots:
         m_albumName = albumName;
         emit albumNameChanged(m_albumName);
     }
-
+//网址
     void setUrl(QString url)
     {
         if (m_url == url)
@@ -122,7 +122,7 @@ public slots:
         m_url = url;
         emit urlChanged(m_url);
     }
-
+//歌词设置
     void setLyrics(QString lyrics)
     {
         if (m_lyrics == lyrics)
@@ -131,9 +131,7 @@ public slots:
         m_lyrics = lyrics;
         emit lyricsChanged(m_lyrics);
     }
-
-
-
+//容器
     void setDuration(QList<double> duration)
     {
         if (m_duration == duration)
@@ -142,7 +140,7 @@ public slots:
         m_duration = duration;
         emit durationChanged(m_duration);
     }
-
+//专辑图片
     void setImage(QString image)
     {
         if (m_image == image)

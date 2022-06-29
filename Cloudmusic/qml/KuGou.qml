@@ -11,23 +11,7 @@ Item {
             addSongItem()
         }
         onUrlChanged: {
-            content.musicPlayer.audio.source=kuGouSong.url;
-
-            content.musicPlayer.audio.play()
-            content.musicPlayer.start.visible=false
-            content.musicPlayer.pause.visible=true
-
-            content.musicPlayer.fileName=songName[songListView.currentIndex]
-            content.fileNameText.text=songName[songListView.currentIndex]
-            content.singerText.text=singerName[songListView.currentIndex]
-
-            appWindow.rootImage.source=image;
-            content.leftImage.source=image;
-
-            dialogs.miniDialog.musicStart.visible = false
-            dialogs.miniDialog.musicPause.visible = true
-
-            dialogs.lyricDialog.timerTest.running=false
+//            dialogs.lyricDialog.timerTest.running=false
             netLyric=kuGouSong.lyrics
             showNetworkLyrics();
         }

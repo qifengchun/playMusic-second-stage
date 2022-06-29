@@ -1,4 +1,5 @@
 import QtQuick
+import Lyric
 
 Item {
     property alias lyricText:lyricText
@@ -45,5 +46,8 @@ Item {
             verticalAlignment: Text.AlignVCenter
             color:ListView.isCurrentItem?"red":"black"
         }
+    }
+    Lyric{
+        id:lyric_id
     }
 }
