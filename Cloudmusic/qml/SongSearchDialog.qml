@@ -1,5 +1,6 @@
 //由qfc完成搜索模块
 import QtQuick
+import QtCore
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Dialogs
@@ -17,7 +18,7 @@ ApplicationWindow {
     property double mY:0.0
     property alias songListView: songListView
     property alias play1: play1
-    property alias pauseVideo: pauseVideo
+//    property alias pauseVideo: pauseVideo
     property alias songListModel: songListModel
     property alias inputField: inputField
     property string netLyric:""
@@ -233,28 +234,31 @@ ApplicationWindow {
                                 id:tapHandler
                                 acceptedButtons: Qt.RightButton
                                 onTapped: {
-                                    mX=mouseArea1.mouseX
-                                    mY=mouseArea1.mouseY
+
+                                    console.log("x="+eventPoint.scenePosition.x);
+                                    console.log("y="+eventPoint.scenePosition.y);
                                     menu1.open()
                                 }
                             }
-                            MouseArea{
+                            TapHandler{
                                 id:mouseArea1
-                                anchors.fill: parent
+                                //  gesturePolicy: TapHandler.ReleaseWithinBounds
                                 acceptedButtons: Qt.LeftButton
-                                onClicked: {
-                                    if(mouse.button===Qt.LeftButton) {
-                                        songListView.currentIndex=index//索引
-                                    }
+                                onTapped: {
+//                                    mX=eventPoint.scenePosition.x
+//                                    mY=eventPoint.scenePosition.y
+                                    songListView.currentIndex=index;//索引
+                                    console.log("clicked")
                                 }
-                                onDoubleClicked: {
 
+                                onDoubleTapped: {
                                     play1.triggered();
+                                    console.log("double clicked!")
                                 }
                             }
                             Menu{
                                 id:menu1
-                                x:mX
+                                x:mX+100
                                 y:mY
                                 contentData: [
                                     play1,
@@ -345,17 +349,14 @@ ApplicationWindow {
                                 }
 
                             }
-                            MouseArea{
+                            TapHandler{
                                 id:mouseArea2
-                                anchors.fill: parent
                                 acceptedButtons: Qt.LeftButton
-                                onClicked: {
-                                    if(mouse.button===Qt.LeftButton) {
+                                onTapped: {
                                         playListView.currentIndex=index//引用
-                                    }
                                 }
                                 //点击事件需要C加加实现
-                                onDoubleClicked: {
+                                onDoubleTapped: {
                                     re1.visible=false
                                     re2.visible=true
                                     songModel.clear()
@@ -620,72 +621,78 @@ ApplicationWindow {
         id:kugou
 
     }
-    VideoPage{
-        id:videoPage
-    }
-
     Action{
         id:play1
         text: qsTr("播放")
 
         onTriggered: {
-//            if(videoPlayFlag) {
-//                pauseVideo.trigger()
-//                console.log(videoPlayFlag)
-//            }
-//            networkPlay=true
-//            content.spectrogram.speTimer.running = false
-//            content.spectrogram.canvasClear()
-//            content.lyricRightPage.lyricListModel.clear()
-//            content.lyricLeftPage.lyricListModel.clear()
+            //            if(videoPlayFlag) {
+            //                pauseVideo.trigger()
+            //                console.log(videoPlayFlag)
+            //            }
+            //            networkPlay=true
+            //            content.spectrogram.speTimer.running = false
+            //            content.spectrogram.canvasClear()
+            //            content.lyricRightPage.lyricListModel.clear()
+            //            content.lyricLeftPage.lyricListModel.clear()
 
-//            if(dialogs.lyricDialog.timerTest.running) {
-//                dialogs.lyricDialog.testNum=0     //让testArea中的歌词不再高亮
-//                dialogs.lyricDialog.timerTest.running=false;
-//                dialogs.lyricDialog.action.addTagAction.enabled=true;
-//                dialogs.lyricDialog.action.deleteHeaderLabelAction.enabled=true;
-//                dialogs.lyricDialog.action.deleteAllLabelAction.enabled=true;
-//                dialogs.lyricDialog.toolBarAddTag.enabled=true
-//                dialogs.lyricDialog.tooBarDeleteHeaderLabel.enabled=true
-//            }
+            //            if(dialogs.lyricDialog.timerTest.running) {
+            //                dialogs.lyricDialog.testNum=0     //让testArea中的歌词不再高亮
+            //                dialogs.lyricDialog.timerTest.running=false;
+            //                dialogs.lyricDialog.action.addTagAction.enabled=true;
+            //                dialogs.lyricDialog.action.deleteHeaderLabelAction.enabled=true;
+            //                dialogs.lyricDialog.action.deleteAllLabelAction.enabled=true;
+            //                dialogs.lyricDialog.toolBarAddTag.enabled=true
+            //                dialogs.lyricDialog.tooBarDeleteHeaderLabel.enabled=true
+            //            }
 
             if(re1.visible) {
-                 kugou.kuGouSong.getSongUrl(songListView.currentIndex)
+                kugou.kuGouSong.getSongUrl(songListView.currentIndex)
             } else {
                 kugou.kuGouPlayList.getSongUrl(songList.currentIndex)
             }
-
-            console.log(kugou.kuGouSong.url)
             content.player.source=kugou.kuGouSong.url
             content.player.play();
         }
     }
     Action{
         id:downloadSong
-         text:qsTr("下载")
-         onTriggered: {
-             saveSongDialog.open()
-         }
-    }
-    Action{
-        id:pauseVideo
-        text: qsTr("暂停")
+        text:qsTr("下载")
         onTriggered: {
-            videoPlayFlag=false
-            videoPage.video.pause()
-        }
-    }
-    Action{
-        id:playVideo
-        text: qsTr("播放")
-        onTriggered: {
-            kugou.kuGouMv.getMvUrl(mvListView.currentIndex)
+            saveSongDialog.open()
         }
     }
     Action{
         id:pause1
         text: qsTr("暂停")
         onTriggered: actions.pauseAction.triggered()
+    }
+
+    FileDialog{
+        id: saveSongDialog
+        title: "save music"
+        currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+        nameFilters: ["*.mp3"]
+//        selectExisting: false
+        onAccepted: {
+            var path=fileUrl.toString().slice(7)
+            var end=path.substring(path.length-4)
+            if(end!=="mp3") {
+                path+=".mp3"
+            }
+            if(re1.visible) {
+                kugou.kuGouSong.downloadSong(songListView.currentIndex,path)
+            } else {
+                console.log("download faided!")
+            }
+        }
+    }
+
+    function showNetworkLyrics(){
+        dialogs.lyricDialog.lyric_id.lyric=netLyric
+        content.placeLyricToView()
+        dialogs.lyricDialog.onClickAudioSlider()
+
     }
 
 }

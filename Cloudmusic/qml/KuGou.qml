@@ -1,14 +1,10 @@
 //由qfc完成的搜索模块
 import QtQuick
 import KuGouSong
-import KuGouMv
 
 Item {
 
     property alias kuGouSong:kuGouSong
-    property alias kuGouMv:kuGouMv
-//    property alias kuGouPlayList:kuGouPlayList
-
     KuGouSong{
         id:kuGouSong
         onSongNameChanged: {
@@ -36,54 +32,6 @@ Item {
             showNetworkLyrics();
         }
     }
-
-    KuGouMv{
-        id:kuGouMv
-        onMvNameChanged: {
-            addMvItem()
-        }
-        onMvUrlChanged: {
-            videoPage.visible=true
-            videoPage.video.source=mvUrl
-            videoPage.video.play()
-            videoPlayFlag=true
-            if(content.musicPlayer.pause.visible) {
-                content.musicPlayer.pause.clicked()
-            }
-        }
-    }
-
-//    KuGouPlayList{
-//        id:kuGouPlayList
-//        onSpecialNameChanged: {
-//            addPlayListItem()
-//        }
-
-//        onSongNameChanged: {
-//            addSongItemInPlayList()
-//        }
-//        onUrlChanged: {
-//            content.musicPlayer.audio.source=kuGouPlayList.url;
-
-//            content.musicPlayer.audio.play()
-//            content.musicPlayer.start.visible=false
-//            content.musicPlayer.pause.visible=true
-
-//            content.musicPlayer.fileName=songName[songList.currentIndex]
-//            content.fileNameText.text=songName[songList.currentIndex]
-//            content.singerText.text=singerName[songList.currentIndex]
-
-//            appWindow.rootImage.source=image;
-//            content.leftImage.source=image;
-
-//            dialogs.miniDialog.musicStart.visible = false
-//            dialogs.miniDialog.musicPause.visible = true
-
-//            dialogs.lyricDialog.timerTest.running=false
-//            netLyric=kuGouPlayList.lyrics
-//            showNetworkLyrics();
-//        }
-//    }
 
     function addSongItem(){
         bar.currentIndex=0

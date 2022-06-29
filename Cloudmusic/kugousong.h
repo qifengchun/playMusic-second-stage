@@ -17,8 +17,8 @@ class KuGouSong:public QObject
     Q_PROPERTY(QList<QString> songName READ songName WRITE setSongName NOTIFY songNameChanged)//歌曲名
     Q_PROPERTY(QList<QString> albumName READ albumName WRITE setAlbumName NOTIFY albumNameChanged)//专辑名
     Q_PROPERTY(QList<double> duration READ duration WRITE setDuration NOTIFY durationChanged)//歌曲时长
-    //Q_PROPERTY(QString lyrics READ lyrics WRITE setLyrics NOTIFY lyricsChanged)//歌词
-    //Q_PROPERTY(QString image READ image WRITE setImage NOTIFY imageChanged)//图片
+    Q_PROPERTY(QString lyrics READ lyrics WRITE setLyrics NOTIFY lyricsChanged)//歌词
+    Q_PROPERTY(QString image READ image WRITE setImage NOTIFY imageChanged)//图片
     Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)//网址路径
 
 public:
@@ -69,10 +69,10 @@ public:
         return m_url;
     }
 
-//    QString lyrics() const
-//    {
-//        return m_lyrics;
-//    }
+    QString lyrics() const
+    {
+        return m_lyrics;
+    }
 
 
 
@@ -81,10 +81,10 @@ public:
         return m_duration;
     }
 
-//    QString image() const
-//    {
-//        return m_image;
-//    }
+    QString image() const
+    {
+        return m_image;
+    }
 
 public slots:
     void setSingerName(QList<QString> singerName)
@@ -123,14 +123,14 @@ public slots:
         emit urlChanged(m_url);
     }
 
-//    void setLyrics(QString lyrics)
-//    {
-//        if (m_lyrics == lyrics)
-//            return;
+    void setLyrics(QString lyrics)
+    {
+        if (m_lyrics == lyrics)
+            return;
 
-//        m_lyrics = lyrics;
-//        emit lyricsChanged(m_lyrics);
-//    }
+        m_lyrics = lyrics;
+        emit lyricsChanged(m_lyrics);
+    }
 
 
 
@@ -143,14 +143,14 @@ public slots:
         emit durationChanged(m_duration);
     }
 
-//    void setImage(QString image)
-//    {
-//        if (m_image == image)
-//            return;
+    void setImage(QString image)
+    {
+        if (m_image == image)
+            return;
 
-//        m_image = image;
-//        emit imageChanged(m_image);
-//    }
+        m_image = image;
+        emit imageChanged(m_image);
+    }
 
 protected slots:
     //信号回复
@@ -168,11 +168,11 @@ signals:
 
     void urlChanged(QString url);
 
-//    void lyricsChanged(QString lyrics);
+    void lyricsChanged(QString lyrics);
 
     void durationChanged(QList<double> duration);
 
-//    void imageChanged(QString image);
+    void imageChanged(QString image);
     void getUrl();
 private:
     //处理请求
