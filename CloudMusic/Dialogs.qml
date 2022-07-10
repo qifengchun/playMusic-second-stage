@@ -14,7 +14,6 @@ Item{
     property alias skinDialog:skinDialog
     property alias trackInformationDialog:trackInformationDialog
     property alias songSearchDialog:songSearchDialog
-    property alias lyricDialog:lyricDialog
 
 //打开文件
     FileDialog {
@@ -62,10 +61,6 @@ Item{
         visible: false
     }
 
-    LyricPage{
-        id:lyricDialog
-        visible: false
-    }
 
 
 }

@@ -325,7 +325,7 @@ ApplicationWindow {
     }
 
     function showNetworkLyrics(){
-        dialogs.lyricDialog.lyric.lyrics=netLyric
+        dialogs.lyricDialog.lyric_id.lyric=netLyric
         content.placeLyricToView()
     }
 

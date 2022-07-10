@@ -77,7 +77,7 @@ Item{
         }
     }
     SplitView {
-        opacity: 0.3
+        opacity: 1
         z:1
         anchors.fill: parent
         orientation: Qt.Horizontal  //视图排列方向
@@ -165,7 +165,7 @@ Item{
                         color:ListView.isCurrentItem ? "lightgrey" : "white"
                         Text {
                             id: serialNumberText
-                            text:filePath.toString().replace(/^.*[\\\/]/,'')
+                            text: index+1
                             font.pointSize: 15
                             width: 40
                             color: "Teal"
@@ -199,24 +199,6 @@ Item{
         }
     }
 
-    function placeLyricToView(){
-        dialogs.lyricDialog.lyricListView.currentIndex=-1
-        dialogs.lyricDialog.lyricListView.visible=true
-        dialogs.lyricDialog.lyricText.visible=false
-        dialogs.lyricDialog.lyricListModel.clear()
-        dialogs.lyricDialog.lyric.parseLyric()
-        appendLyric(dialogs.lyricDialog.lyric.plainLyric.length)
-    }
-    function appendLyric(length){
-        for(var i=0;i<length;i++){
-            //console.log(String(dialogs.lyricDialog.lyric.plainLyric[i]))
-            var data={"currentLyrics":String(dialogs.lyricDialog.lyric.plainLyric[i])}
-            dialogs.lyricDialog.lyricListModel.append(data)
-
-        }
-         dialogs.lyricDialog.lyricListView.currentIndex=0
-
-    }
 }
 
 
