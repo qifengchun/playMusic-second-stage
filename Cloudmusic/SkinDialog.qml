@@ -77,7 +77,7 @@ ApplicationWindow {
 
     FolderListModel{
         id:imageModel
-        folder:"qrc:/background"
+        folder:":/background"
     }
 
     Component{
@@ -93,7 +93,6 @@ ApplicationWindow {
                 onTapped:{
                     imageview.currentIndex=index
                     imageUrl=fileUrl
-
                 }
             }
         }

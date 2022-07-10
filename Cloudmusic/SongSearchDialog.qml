@@ -22,6 +22,7 @@ ApplicationWindow {
     property alias songListModel: songListModel
     property alias inputField: inputField
     property string netLyric:""
+    property string netSongName: ""
 //    property alias lyric_id:lyric_id
 
     background: Image {
@@ -324,7 +325,11 @@ ApplicationWindow {
     }
 
     function showNetworkLyrics(){
-//        dialogs.lyricDialog.lyric_id.lyric=netLyric
-//        content.placeLyricToView()
+        dialogs.lyricDialog.lyric.lyrics=netLyric
+        content.placeLyricToView()
     }
+
+
+
+
 }

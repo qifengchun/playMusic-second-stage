@@ -38,14 +38,23 @@ Item {
         id:exit
         text:qsTr("退出")
         icon.name:"application-exit"
+        onTriggered: {
+            appwindow.close()
+        }
     }
     Action{
         id:openLyric
         text:qsTr("打开歌词")
+        onTriggered: {
+            dialogs.lyricDialog.visible=true
+        }
     }
     Action{
         id:closeLyric
         text:qsTr("关闭歌词")
+        onTriggered: {
+            dialogs.lyricDialog.visible=false
+        }
     }
     Action{
         id:addsonglist
@@ -55,6 +64,7 @@ Item {
     Action{
         id:play
         icon.name: "media-playback-start"
+        icon.source:"qrc:/image/add.png"
         onTriggered:{
             play1.visible=false
             pause1.visible=true

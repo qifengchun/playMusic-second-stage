@@ -76,17 +76,67 @@ Item{
             else endTime.text = minutes+":"+seconds
         }
     }
-
-
+    SplitView {
+        opacity: 0.3
+        z:1
+        anchors.fill: parent
+        orientation: Qt.Horizontal  //视图排列方向
+        //设计拖动的线 ，让其拖动必须设置implicitHeight，不然无法拖动
+        handle:
+            Rectangle {
+            width: 1
+            implicitWidth: 1
+            //          implicitHeight: 3
+            color: SplitHandle.hovered ? "#81e889" : "#FFFFFF"
+        }
         //左边放swipview
         Rectangle {
             id:leftrec
-
-            width: parent.width*0.8
-            height: parent.height
+            implicitWidth: 600 //初始化的宽度
+            SplitView.maximumWidth:parent.width*0.8  //能拖动的最大的宽度
             color: "lightblue"
 
+            SwipeView {
+                id: view
 
+                currentIndex: 1
+                anchors.fill: parent
+
+                Item {
+                    id: firstPage
+                    Image {
+                        //id= name
+                        source: ":/image/播放.png"
+                        anchors.fill:parent
+                    }
+
+                }
+                Item {
+                    id: secondPage
+                    Image {
+                        //id= name
+                        source: ":/image/下一曲.png"
+                        anchors.fill: parent
+                    }
+                }
+                Item {
+                    id: thirdPage
+                    Image {
+                        //id= name
+                        source:":/image/add.png"
+                        anchors.fill: parent
+                    }
+                }
+            }
+
+            PageIndicator {
+                id: indicator
+
+                count: view.count
+                currentIndex: view.currentIndex
+
+                anchors.bottom: view.bottom
+                anchors.horizontalCenter: parent.horizontalCenter}
 
 
         }
@@ -94,9 +144,9 @@ Item{
         //右边放列表
         Rectangle {
             id: rightrec
-            height: parent.height
-            width: parent.width*0.2
-            anchors.right: parent.right
+            SplitView.minimumWidth: parent.width*0.2 //可以达到的最小宽度
+            SplitView.fillWidth:    true  //可以填满整个宽度
+            SplitView.fillHeight:   true
             color: "lightgray"
             ListView{
                 id:list
@@ -115,7 +165,7 @@ Item{
                         color:ListView.isCurrentItem ? "lightgrey" : "white"
                         Text {
                             id: serialNumberText
-                            text: filePath.toString().replace(/^.*[\\\/]/,'')
+                            text:filePath.toString().replace(/^.*[\\\/]/,'')
                             font.pointSize: 15
                             width: 40
                             color: "Teal"
@@ -147,8 +197,26 @@ Item{
             interval: 10;running: true;repeat: true
             onTriggered:    slider2.value=  player.position/1000
         }
+    }
 
+    function placeLyricToView(){
+        dialogs.lyricDialog.lyricListView.currentIndex=-1
+        dialogs.lyricDialog.lyricListView.visible=true
+        dialogs.lyricDialog.lyricText.visible=false
+        dialogs.lyricDialog.lyricListModel.clear()
+        dialogs.lyricDialog.lyric.parseLyric()
+        appendLyric(dialogs.lyricDialog.lyric.plainLyric.length)
+    }
+    function appendLyric(length){
+        for(var i=0;i<length;i++){
+            //console.log(String(dialogs.lyricDialog.lyric.plainLyric[i]))
+            var data={"currentLyrics":String(dialogs.lyricDialog.lyric.plainLyric[i])}
+            dialogs.lyricDialog.lyricListModel.append(data)
 
+        }
+         dialogs.lyricDialog.lyricListView.currentIndex=0
+
+    }
 }
 
 

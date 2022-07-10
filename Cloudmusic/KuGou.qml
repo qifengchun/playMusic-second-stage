@@ -13,6 +13,7 @@ Item {
         onUrlChanged: {
 //            dialogs.lyricDialog.timerTest.running=false
             netLyric=kuGouSong.lyrics
+            netSongName=kuGouSong.songName
             showNetworkLyrics();
         }
     }
